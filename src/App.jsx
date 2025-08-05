@@ -38,6 +38,7 @@ import {
 import './App.css'
 
 function App() {
+  console.log('App component rendering...')
   const [activeSection, setActiveSection] = useState('home')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openService, setOpenService] = useState(null)
