@@ -16,10 +16,24 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: '22'
+
+      # Build main site
       - run: npm ci --legacy-peer-deps
       - run: npm run build
+
+      # Build privacy-tools sub-app
+      - name: Install privacy-tools dependencies
+        working-directory: ./privacy-tools
+        run: npm ci
+      - name: Build privacy-tools
+        working-directory: ./privacy-tools
+        run: npm run build
+
+      # Copy privacy-tools build into main dist
+      - name: Merge privacy-tools into dist
+        run: cp -r ./privacy-tools/dist ./dist/privacy-tools
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist

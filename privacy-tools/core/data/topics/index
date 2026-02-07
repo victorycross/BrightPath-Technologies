@@ -1,0 +1,118 @@
+import { TopicCategory, Jurisdiction } from '../enums.js';
+import type { SectionId } from '../types.js';
+
+export interface TopicDefinition {
+  id: TopicCategory;
+  name: string;
+  description: string;
+  subtopics: SubtopicDefinition[];
+  mapToDisclaimerSections: SectionId[];
+}
+
+export interface SubtopicDefinition {
+  id: string;
+  name: string;
+  description: string;
+  applicableRegulations: Jurisdiction[];
+}
+
+const ALL_JURISDICTIONS = Object.values(Jurisdiction);
+
+export const TOPIC_TAXONOMY: TopicDefinition[] = [
+  {
+    id: TopicCategory.DEFINITIONS,
+    name: 'Definitions',
+    description: 'Key terms and their regulatory meanings',
+    subtopics: [
+      { id: 'def-personal-info', name: 'Personal information / personal data', description: 'Definition of what constitutes personal information or personal data', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'def-processing', name: 'Processing', description: 'Definition of data processing activities', applicableRegulations: [Jurisdiction.GDPR, Jurisdiction.CCPA, Jurisdiction.CPRA] },
+      { id: 'def-controller', name: 'Controller / business', description: 'Definition of data controller or business', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'def-sensitive', name: 'Sensitive personal information', description: 'Definition of sensitive or special category data', applicableRegulations: [Jurisdiction.GDPR, Jurisdiction.CPRA, Jurisdiction.QUEBEC_LAW25] },
+    ],
+    mapToDisclaimerSections: ['preamble'],
+  },
+  {
+    id: TopicCategory.SCOPE,
+    name: 'Scope',
+    description: 'Territorial and material scope of the regulation',
+    subtopics: [
+      { id: 'scope-territorial', name: 'Territorial applicability', description: 'Where the regulation applies geographically', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'scope-material', name: 'Material scope', description: 'Types of activities covered', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'scope-exemptions', name: 'Exemptions', description: 'Activities or entities exempted from the regulation', applicableRegulations: ALL_JURISDICTIONS },
+    ],
+    mapToDisclaimerSections: ['preamble'],
+  },
+  {
+    id: TopicCategory.DATA_SUBJECT_RIGHTS,
+    name: 'Data Subject Rights',
+    description: 'Rights of individuals regarding their personal information',
+    subtopics: [
+      { id: 'dsr-access', name: 'Right of access', description: 'Right to obtain copy of personal data', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'dsr-rectification', name: 'Right to rectification', description: 'Right to correct inaccurate data', applicableRegulations: [Jurisdiction.GDPR, Jurisdiction.PIPEDA, Jurisdiction.QUEBEC_LAW25, Jurisdiction.ALBERTA_PIPA, Jurisdiction.BC_PIPA, Jurisdiction.CPRA] },
+      { id: 'dsr-deletion', name: 'Right to deletion / erasure', description: 'Right to have data deleted', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'dsr-portability', name: 'Right to data portability', description: 'Right to receive data in structured format', applicableRegulations: [Jurisdiction.GDPR, Jurisdiction.QUEBEC_LAW25, Jurisdiction.CPRA] },
+      { id: 'dsr-restriction', name: 'Right to restrict processing', description: 'Right to limit how data is processed', applicableRegulations: [Jurisdiction.GDPR] },
+      { id: 'dsr-objection', name: 'Right to object', description: 'Right to object to processing', applicableRegulations: [Jurisdiction.GDPR] },
+      { id: 'dsr-opt-out', name: 'Right to opt out', description: 'Right to opt out of sale or sharing', applicableRegulations: [Jurisdiction.CCPA, Jurisdiction.CPRA] },
+    ],
+    mapToDisclaimerSections: ['data-subject-rights', 'jurisdiction-specific'],
+  },
+  {
+    id: TopicCategory.ENTERPRISE_REQUIREMENTS,
+    name: 'Enterprise Requirements',
+    description: 'Obligations on data controllers/businesses',
+    subtopics: [
+      { id: 'ent-notification', name: 'Notification obligations', description: 'Requirements to inform data subjects', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'ent-consent', name: 'Consent requirements', description: 'Rules for obtaining valid consent', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'ent-privacy-policy', name: 'Privacy policy requirements', description: 'Mandated content of privacy policies', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'ent-dpia', name: 'Data protection impact assessment', description: 'DPIA / confidentiality impact assessment obligations', applicableRegulations: [Jurisdiction.GDPR, Jurisdiction.QUEBEC_LAW25, Jurisdiction.CPRA] },
+      { id: 'ent-response-period', name: 'Response periods', description: 'Timeframes for responding to requests', applicableRegulations: ALL_JURISDICTIONS },
+    ],
+    mapToDisclaimerSections: ['legal-basis', 'use-of-data', 'cookies', 'contact'],
+  },
+  {
+    id: TopicCategory.DATA_PROTECTION,
+    name: 'Data Protection',
+    description: 'Technical and organizational data protection measures',
+    subtopics: [
+      { id: 'prot-breaches', name: 'Breach notification', description: 'Requirements for reporting data breaches', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'prot-dpo', name: 'Data Protection Officer', description: 'DPO designation requirements', applicableRegulations: [Jurisdiction.GDPR, Jurisdiction.QUEBEC_LAW25] },
+      { id: 'prot-safeguards', name: 'Security safeguards', description: 'Technical and organizational security measures', applicableRegulations: ALL_JURISDICTIONS },
+    ],
+    mapToDisclaimerSections: ['security-measures'],
+  },
+  {
+    id: TopicCategory.DATA_MANAGEMENT,
+    name: 'Data Management',
+    description: 'Rules for managing personal data throughout its lifecycle',
+    subtopics: [
+      { id: 'mgmt-collection', name: 'Data collection', description: 'Rules and limitations on data collection', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'mgmt-retention', name: 'Retention', description: 'Rules for how long data may be kept', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'mgmt-quality', name: 'Data quality', description: 'Accuracy and completeness requirements', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'mgmt-cross-border', name: 'Cross-border transfers', description: 'Rules for international data transfers', applicableRegulations: [Jurisdiction.GDPR, Jurisdiction.PIPEDA, Jurisdiction.QUEBEC_LAW25, Jurisdiction.ALBERTA_PIPA, Jurisdiction.BC_PIPA] },
+      { id: 'mgmt-children', name: 'Age-related considerations', description: 'Special rules for children and minors', applicableRegulations: ALL_JURISDICTIONS },
+    ],
+    mapToDisclaimerSections: ['data-collection', 'retention', 'cross-border', 'children'],
+  },
+  {
+    id: TopicCategory.ENFORCEMENT,
+    name: 'Enforcement',
+    description: 'Enforcement mechanisms, penalties, and complaint procedures',
+    subtopics: [
+      { id: 'enf-penalties', name: 'Remedies and penalties', description: 'Financial and other penalties', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'enf-complaints', name: 'Complaints', description: 'Complaint mechanisms and escalation', applicableRegulations: ALL_JURISDICTIONS },
+    ],
+    mapToDisclaimerSections: ['jurisdiction-specific'],
+  },
+  {
+    id: TopicCategory.THIRD_PARTY,
+    name: 'Third-Party Considerations',
+    description: 'Requirements for sharing data with third parties',
+    subtopics: [
+      { id: 'tp-disclosure', name: 'Disclosure to third parties', description: 'Requirements for disclosing data to other organizations', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'tp-processors', name: 'Processor/service provider obligations', description: 'Requirements for data processors and service providers', applicableRegulations: ALL_JURISDICTIONS },
+      { id: 'tp-sale', name: 'Sale of personal information', description: 'Rules regarding the sale of personal data', applicableRegulations: [Jurisdiction.CCPA, Jurisdiction.CPRA] },
+    ],
+    mapToDisclaimerSections: ['data-sharing'],
+  },
+];

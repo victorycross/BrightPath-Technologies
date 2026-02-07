@@ -29,3 +29,6 @@ Thumbs.db
 *.tmp
 *.temp
 
+# Sub-app build output (built in CI)
+privacy-tools/dist/
+
