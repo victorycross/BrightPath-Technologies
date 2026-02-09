@@ -6,6 +6,7 @@ import { WizardPanel } from '@/components/wizard/WizardPanel.tsx';
 import { PreviewPanel } from '@/components/preview/PreviewPanel.tsx';
 import { EntityRoleStandalone } from '@/components/tools/EntityRoleStandalone.tsx';
 import { ProcessorDiscoveryStandalone } from '@/components/tools/ProcessorDiscoveryStandalone.tsx';
+import { CookieDisclaimerStandalone } from '@/components/tools/CookieDisclaimerStandalone.tsx';
 import type { ActiveView } from '@/types/views.ts';
 
 export default function App() {
@@ -19,6 +20,8 @@ export default function App() {
         return <EntityRoleStandalone onClose={() => setActiveView('home')} />;
       case 'processor-discovery':
         return <ProcessorDiscoveryStandalone onClose={() => setActiveView('home')} />;
+      case 'cookie-disclaimer':
+        return <CookieDisclaimerStandalone onClose={() => setActiveView('home')} />;
       case 'wizard':
       default:
         return <WizardPanel />;

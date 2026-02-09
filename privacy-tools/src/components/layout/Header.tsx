@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Shield, Wrench, Building2, Users, Home, ChevronDown } from 'lucide-react';
+import { Shield, Wrench, Building2, Users, Cookie, Home, ChevronDown } from 'lucide-react';
 import type { ActiveView } from '@/types/views.ts';
 
 interface HeaderProps {
@@ -19,6 +19,12 @@ const TOOLS = [
     label: 'Processor Discovery',
     description: 'Identify third-party service providers you share data with',
     icon: Users,
+  },
+  {
+    id: 'cookie-disclaimer' as const,
+    label: 'Cookie Disclaimer',
+    description: 'Generate a jurisdiction-specific cookie policy for your website',
+    icon: Cookie,
   },
 ];
 

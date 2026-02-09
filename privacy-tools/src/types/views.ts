@@ -1,1 +1,1 @@
-export type ActiveView = 'home' | 'wizard' | 'entity-role' | 'processor-discovery';
+export type ActiveView = 'home' | 'wizard' | 'entity-role' | 'processor-discovery' | 'cookie-disclaimer';

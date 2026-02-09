@@ -2,25 +2,26 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-border: oklch(0.922 0.004 286.32);
-  --color-input: oklch(0.922 0.004 286.32);
-  --color-ring: oklch(0.488 0.243 264.376);
-  --color-background: oklch(1 0 0);
-  --color-foreground: oklch(0.145 0.017 285.82);
-  --color-primary: oklch(0.488 0.243 264.376);
-  --color-primary-foreground: oklch(0.984 0.003 247.858);
-  --color-secondary: oklch(0.967 0.003 286.32);
-  --color-secondary-foreground: oklch(0.21 0.006 285.885);
-  --color-muted: oklch(0.967 0.003 286.32);
-  --color-muted-foreground: oklch(0.553 0.013 285.938);
-  --color-accent: oklch(0.967 0.003 286.32);
-  --color-accent-foreground: oklch(0.21 0.006 285.885);
-  --color-destructive: oklch(0.577 0.245 27.325);
-  --color-destructive-foreground: oklch(0.984 0.003 247.858);
-  --color-card: oklch(1 0 0);
-  --color-card-foreground: oklch(0.145 0.017 285.82);
-  --color-popover: oklch(1 0 0);
-  --color-popover-foreground: oklch(0.145 0.017 285.82);
+  /* PwC Brand Colors */
+  --color-border: oklch(0.902 0.005 286.32);       /* #DEDEDE — Light Gray */
+  --color-input: oklch(0.902 0.005 286.32);         /* #DEDEDE — Light Gray */
+  --color-ring: oklch(0.522 0.175 38.07);           /* #D04A02 — Signature Orange */
+  --color-background: oklch(1 0 0);                 /* #FFFFFF — White */
+  --color-foreground: oklch(0.279 0.006 285.82);    /* #2D2D2D — Near Black */
+  --color-primary: oklch(0.522 0.175 38.07);        /* #D04A02 — Signature Orange */
+  --color-primary-foreground: oklch(1 0 0);         /* #FFFFFF — White */
+  --color-secondary: oklch(0.971 0.005 17.25);      /* #F8F4F4 — Off-White */
+  --color-secondary-foreground: oklch(0.279 0.006 285.82); /* #2D2D2D — Near Black */
+  --color-muted: oklch(0.971 0.005 17.25);          /* #F8F4F4 — Off-White */
+  --color-muted-foreground: oklch(0.556 0.006 285.82); /* #7D7D7D — Medium Gray */
+  --color-accent: oklch(0.971 0.015 55);             /* Warm light tint — hover backgrounds */
+  --color-accent-foreground: oklch(0.279 0.006 285.82); /* #2D2D2D — Near Black */
+  --color-destructive: oklch(0.546 0.215 27.33);    /* #E0301E — PwC Red */
+  --color-destructive-foreground: oklch(1 0 0);     /* #FFFFFF — White */
+  --color-card: oklch(1 0 0);                       /* #FFFFFF — White */
+  --color-card-foreground: oklch(0.279 0.006 285.82); /* #2D2D2D — Near Black */
+  --color-popover: oklch(1 0 0);                    /* #FFFFFF — White */
+  --color-popover-foreground: oklch(0.279 0.006 285.82); /* #2D2D2D — Near Black */
   --radius-sm: 0.25rem;
   --radius-md: 0.375rem;
   --radius-lg: 0.5rem;
@@ -29,9 +30,13 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-background);
   color: var(--color-foreground);
+}
+
+h1, h2, h3 {
+  font-family: Georgia, 'Times New Roman', serif;
 }

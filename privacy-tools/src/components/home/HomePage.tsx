@@ -1,4 +1,4 @@
-import { FileText, Building2, Users, ExternalLink, Shield, ArrowRight, Scale, Globe } from 'lucide-react';
+import { FileText, Building2, Users, Cookie, ExternalLink, Shield, ArrowRight, Scale, Globe } from 'lucide-react';
 import type { ActiveView } from '@/types/views.ts';
 
 interface HomePageProps {
@@ -29,6 +29,14 @@ const FEATURES = [
     description:
       'Identify third-party service providers your organization shares personal data with. Generate a standalone processor disclosure with regulatory references.',
     cta: 'Discover Processors',
+  },
+  {
+    id: 'cookie-disclaimer' as const,
+    icon: Cookie,
+    title: 'Cookie Disclaimer Generator',
+    description:
+      'Generate a jurisdiction-specific cookie policy for your website. Define cookie categories, consent mechanisms, and export a publication-ready cookie disclaimer.',
+    cta: 'Generate Cookie Policy',
   },
 ];
 
@@ -128,7 +136,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
         <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
           Tools
         </h2>
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {FEATURES.map((feature) => {
             const Icon = feature.icon;
             return (

@@ -242,4 +242,270 @@ export function renderRoleDeterminationMemo(input: RoleDeterminationInput): stri
   return lines.join('\n');
 }
 
-export type { DecisionPathEntry, ProcessorDisclosureInput, RoleDeterminationInput };
+// --- Cookie Disclaimer ---
+
+interface CookieDisclaimerInput {
+  websiteUrl: string;
+  orgName: string;
+  jurisdictions: Jurisdiction[];
+  cookies: {
+    id: string;
+    name: string;
+    provider: string;
+    purpose: string;
+    duration: string;
+    type: 'first_party' | 'third_party';
+    category: string;
+  }[];
+  consentModels: {
+    jurisdiction: Jurisdiction;
+    model: string;
+    granularByCategory: boolean;
+    rejectAllRequired: boolean;
+    cookieWallProhibited: boolean;
+    notes: string;
+  }[];
+  bannerPosition: string;
+  generatedAt: Date;
+}
+
+const COOKIE_CATEGORY_DISPLAY: Record<string, string> = {
+  strictly_necessary: 'Strictly Necessary Cookies',
+  performance: 'Performance / Analytics Cookies',
+  functionality: 'Functionality Cookies',
+  targeting: 'Targeting / Advertising Cookies',
+  social_media: 'Social Media Cookies',
+};
+
+const CONSENT_MODEL_DISPLAY: Record<string, string> = {
+  opt_in: 'Opt-In (prior consent required)',
+  opt_out: 'Opt-Out (consent assumed until withdrawn)',
+  implied: 'Implied Consent',
+  reasonable: 'Reasonable Consent',
+};
+
+const BANNER_POSITION_DISPLAY: Record<string, string> = {
+  bottom: 'bottom bar',
+  top: 'top bar',
+  center_modal: 'center modal dialog',
+};
+
+const COOKIE_CATEGORY_DESCRIPTIONS: Record<string, string> = {
+  strictly_necessary:
+    'These cookies are essential for the website to function properly. They enable core features such as security, session management, and accessibility. These cookies do not require consent as they are necessary for the provision of the service.',
+  performance:
+    'These cookies help us understand how visitors interact with our website by collecting and reporting anonymous usage data. They allow us to measure and improve the performance of our site.',
+  functionality:
+    'These cookies allow the website to remember choices you make (such as your preferred language or region) and provide enhanced, more personalized features.',
+  targeting:
+    'These cookies are used to deliver advertisements that are relevant to your interests. They may also be used to limit the number of times you see an advertisement and to help measure the effectiveness of advertising campaigns.',
+  social_media:
+    'These cookies are set by social media platforms to enable you to share our content with your networks. They may track your browsing activity across other websites.',
+};
+
+export function renderCookieDisclaimer(input: CookieDisclaimerInput): string {
+  const lines: string[] = [];
+
+  // YAML frontmatter
+  lines.push('---');
+  lines.push('title: "Cookie Disclaimer"');
+  lines.push('document_type: "cookie_disclaimer"');
+  lines.push(`generated: "${input.generatedAt.toISOString()}"`);
+  lines.push('jurisdictions:');
+  for (const j of input.jurisdictions) {
+    lines.push(`  - "${j}"`);
+  }
+  lines.push(`cookie_count: ${input.cookies.length}`);
+  if (input.websiteUrl) {
+    lines.push(`website: "${input.websiteUrl}"`);
+  }
+  lines.push('---');
+  lines.push('');
+
+  // Title
+  lines.push('# Cookie Policy');
+  lines.push('');
+  lines.push(`**Effective Date:** ${formatDate(input.generatedAt)}`);
+  lines.push('');
+  if (input.orgName) {
+    lines.push(`**Organization:** ${input.orgName}`);
+    lines.push('');
+  }
+  if (input.websiteUrl) {
+    lines.push(`**Website:** ${input.websiteUrl}`);
+    lines.push('');
+  }
+
+  // Introduction
+  lines.push('## What Are Cookies');
+  lines.push('');
+  lines.push(
+    'Cookies are small text files that are stored on your device (computer, tablet, or mobile phone) when you visit a website. They are widely used to make websites work more efficiently, to provide a better browsing experience, and to supply information to the owners of the website.',
+  );
+  lines.push('');
+  lines.push(
+    'This Cookie Policy explains what cookies we use, the purposes for which we use them, and how you can manage your cookie preferences.',
+  );
+  lines.push('');
+
+  // Group cookies by category
+  const grouped = new Map<string, typeof input.cookies>();
+  for (const cookie of input.cookies) {
+    const existing = grouped.get(cookie.category) ?? [];
+    existing.push(cookie);
+    grouped.set(cookie.category, existing);
+  }
+
+  // Cookie categories
+  lines.push('## Cookies We Use');
+  lines.push('');
+
+  if (input.cookies.length === 0) {
+    lines.push('No specific cookies have been documented at this time.');
+    lines.push('');
+  } else {
+    // Summary of categories
+    const categories = [...grouped.keys()];
+    lines.push('We use the following categories of cookies:');
+    lines.push('');
+    for (const cat of categories) {
+      const displayName = COOKIE_CATEGORY_DISPLAY[cat] ?? cat;
+      const count = grouped.get(cat)?.length ?? 0;
+      lines.push(`- **${displayName}** (${count} cookie${count !== 1 ? 's' : ''})`);
+    }
+    lines.push('');
+
+    // Per-category sections with tables
+    for (const [cat, catCookies] of grouped) {
+      const displayName = COOKIE_CATEGORY_DISPLAY[cat] ?? cat;
+      const description = COOKIE_CATEGORY_DESCRIPTIONS[cat] ?? '';
+
+      lines.push(`### ${displayName}`);
+      lines.push('');
+      if (description) {
+        lines.push(description);
+        lines.push('');
+      }
+
+      lines.push('| Cookie Name | Provider | Purpose | Duration | Type |');
+      lines.push('|-------------|----------|---------|----------|------|');
+      for (const c of catCookies) {
+        const typeLabel = c.type === 'third_party' ? 'Third Party' : 'First Party';
+        lines.push(
+          `| ${c.name || '—'} | ${c.provider || '—'} | ${c.purpose || '—'} | ${c.duration || '—'} | ${typeLabel} |`,
+        );
+      }
+      lines.push('');
+    }
+  }
+
+  // Consent mechanism
+  lines.push('## Cookie Consent');
+  lines.push('');
+  lines.push(
+    `When you first visit our website, you will be presented with a cookie consent ${BANNER_POSITION_DISPLAY[input.bannerPosition] ?? 'banner'} that allows you to accept or reject non-essential cookies.`,
+  );
+  lines.push('');
+
+  // Strictly necessary note
+  if (grouped.has('strictly_necessary')) {
+    lines.push(
+      'Strictly necessary cookies do not require your consent as they are essential for the website to function. All other categories of cookies require your consent before they are placed on your device.',
+    );
+    lines.push('');
+  }
+
+  // Per-jurisdiction consent requirements
+  if (input.consentModels.length > 0) {
+    lines.push('### Consent Requirements by Jurisdiction');
+    lines.push('');
+    for (const model of input.consentModels) {
+      if (!input.jurisdictions.includes(model.jurisdiction)) continue;
+      const label = JURISDICTION_LABELS[model.jurisdiction];
+      lines.push(`**${label}**`);
+      lines.push('');
+      lines.push(`- Consent model: ${CONSENT_MODEL_DISPLAY[model.model] ?? model.model}`);
+      if (model.granularByCategory) {
+        lines.push('- Users may accept or reject cookies on a per-category basis');
+      }
+      if (model.rejectAllRequired) {
+        lines.push('- A "Reject All" option is provided with equal prominence to the "Accept All" option');
+      }
+      if (model.cookieWallProhibited) {
+        lines.push('- Access to the website is not conditional upon cookie consent (no cookie walls)');
+      }
+      if (model.notes) {
+        lines.push(`- ${model.notes}`);
+      }
+      lines.push('');
+    }
+  }
+
+  // Managing cookies
+  lines.push('## How to Manage Cookies');
+  lines.push('');
+  lines.push(
+    'You can change your cookie preferences at any time by clicking the cookie settings link in the footer of our website. You can also manage cookies through your browser settings:',
+  );
+  lines.push('');
+  lines.push('- **Chrome:** Settings > Privacy and Security > Cookies and other site data');
+  lines.push('- **Firefox:** Settings > Privacy & Security > Cookies and Site Data');
+  lines.push('- **Safari:** Preferences > Privacy > Manage Website Data');
+  lines.push('- **Edge:** Settings > Cookies and site permissions > Manage and delete cookies');
+  lines.push('');
+  lines.push(
+    'Please note that disabling certain cookies may affect the functionality of our website.',
+  );
+  lines.push('');
+
+  // Third-party cookies
+  const thirdPartyCookies = input.cookies.filter((c) => c.type === 'third_party');
+  if (thirdPartyCookies.length > 0) {
+    lines.push('## Third-Party Cookies');
+    lines.push('');
+    lines.push(
+      'Some cookies on our website are set by third-party service providers. We do not control these cookies. For more information about how these third parties use cookies, please refer to their respective privacy policies:',
+    );
+    lines.push('');
+    const providers = [...new Set(thirdPartyCookies.map((c) => c.provider))];
+    for (const provider of providers) {
+      lines.push(`- ${provider}`);
+    }
+    lines.push('');
+  }
+
+  // Updates
+  lines.push('## Updates to This Cookie Policy');
+  lines.push('');
+  lines.push(
+    'We may update this Cookie Policy from time to time to reflect changes in the cookies we use or for other operational, legal, or regulatory reasons. We encourage you to periodically review this page for the latest information on our cookie practices.',
+  );
+  lines.push('');
+
+  // Contact
+  lines.push('## Contact Us');
+  lines.push('');
+  lines.push(
+    'If you have any questions about our use of cookies or this Cookie Policy, please contact us:',
+  );
+  lines.push('');
+  if (input.orgName) {
+    lines.push(`- **Organization:** ${input.orgName}`);
+  }
+  if (input.websiteUrl) {
+    lines.push(`- **Website:** ${input.websiteUrl}`);
+  }
+  lines.push('');
+
+  // Legal disclaimer
+  lines.push('---');
+  lines.push('');
+  lines.push(
+    '*This cookie policy does not constitute legal advice. It is generated as a reference tool and should be reviewed by qualified legal counsel before publication. Cookie requirements vary by jurisdiction and are subject to change.*',
+  );
+  lines.push('');
+
+  return lines.join('\n');
+}
+
+export type { DecisionPathEntry, ProcessorDisclosureInput, RoleDeterminationInput, CookieDisclaimerInput };
