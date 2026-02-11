@@ -34,6 +34,18 @@ jobs:
       - name: Merge privacy-tools into dist
         run: cp -r ./privacy-tools/dist ./dist/privacy-tools
 
+      # Build SDLC Compliance Auditor sub-app
+      - name: Clone SDLC auditor
+        run: git clone https://github.com/victorycross/sdlc-compliance-auditor.git ./sdlc-auditor
+      - name: Install SDLC auditor dependencies
+        working-directory: ./sdlc-auditor
+        run: npm ci --legacy-peer-deps
+      - name: Build SDLC auditor
+        working-directory: ./sdlc-auditor
+        run: npm run build
+      - name: Merge SDLC auditor into dist
+        run: cp -r ./sdlc-auditor/out ./dist/sdlc-auditor
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
