@@ -38,6 +38,18 @@ jobs:
       - name: Merge privacy-tools into dist
         run: cp -r ./privacy-tools/dist ./dist/privacy-tools
 
+      # Build ai-workflow sub-app
+      - name: Install ai-workflow dependencies
+        working-directory: ./ai-workflow
+        run: npm ci
+      - name: Build ai-workflow
+        working-directory: ./ai-workflow
+        run: npm run build
+
+      # Copy ai-workflow build into main dist
+      - name: Merge ai-workflow into dist
+        run: cp -r ./ai-workflow/dist ./dist/ai-workflow
+
       # Restore pre-built SDLC Compliance Auditor subsite
       # Build output is committed to dist/sdlc-auditor/ in this repo.
       # To update: rebuild in the sdlc-compliance-auditor repo and copy out/ here.

@@ -25,6 +25,13 @@
         return;
       }
 
+      if (path.startsWith('/ai-workflow/')) {
+        // Redirect to AI Workflow SPA
+        var newUrl = '/ai-workflow/?redirect=' + encodeURIComponent(path);
+        window.location.replace(newUrl);
+        return;
+      }
+
       // For unrecognized paths, redirect to the main site home
       window.location.replace('/');
     })();
