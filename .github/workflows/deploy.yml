@@ -18,6 +18,10 @@ jobs:
         with:
           node-version: '22'
 
+      # Preserve pre-built subsites before Vite build overwrites dist/
+      - name: Backup pre-built SDLC auditor
+        run: cp -r ./dist/sdlc-auditor /tmp/sdlc-auditor-dist 2>/dev/null || true
+
       # Build main site
       - run: npm ci --legacy-peer-deps
       - run: npm run build
@@ -34,20 +38,11 @@ jobs:
       - name: Merge privacy-tools into dist
         run: cp -r ./privacy-tools/dist ./dist/privacy-tools
 
-      # Build SDLC Compliance Auditor sub-app
-      - name: Checkout SDLC auditor
-        uses: actions/checkout@v4
-        with:
-          repository: victorycross/sdlc-compliance-auditor
-          path: sdlc-auditor
-      - name: Install SDLC auditor dependencies
-        working-directory: ./sdlc-auditor
-        run: npm ci --legacy-peer-deps
-      - name: Build SDLC auditor
-        working-directory: ./sdlc-auditor
-        run: npm run build
+      # Restore pre-built SDLC Compliance Auditor subsite
+      # Build output is committed to dist/sdlc-auditor/ in this repo.
+      # To update: rebuild in the sdlc-compliance-auditor repo and copy out/ here.
       - name: Merge SDLC auditor into dist
-        run: cp -r ./sdlc-auditor/out ./dist/sdlc-auditor
+        run: cp -r /tmp/sdlc-auditor-dist ./dist/sdlc-auditor 2>/dev/null || echo "No SDLC auditor build found"
 
       - uses: actions/upload-pages-artifact@v3
         with:
