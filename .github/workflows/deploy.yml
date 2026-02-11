@@ -35,8 +35,11 @@ jobs:
         run: cp -r ./privacy-tools/dist ./dist/privacy-tools
 
       # Build SDLC Compliance Auditor sub-app
-      - name: Clone SDLC auditor
-        run: git clone https://github.com/victorycross/sdlc-compliance-auditor.git ./sdlc-auditor
+      - name: Checkout SDLC auditor
+        uses: actions/checkout@v4
+        with:
+          repository: victorycross/sdlc-compliance-auditor
+          path: sdlc-auditor
       - name: Install SDLC auditor dependencies
         working-directory: ./sdlc-auditor
         run: npm ci --legacy-peer-deps
