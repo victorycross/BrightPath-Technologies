@@ -595,12 +595,41 @@ function App() {
               </Card>
             </div>
 
-            <div className="text-center mt-12">
+            <div className="mt-12">
+              <Card className="border-0 shadow-xl bg-gradient-to-r from-indigo-50 to-blue-50">
+                <CardContent className="p-8">
+                  <div className="flex flex-col md:flex-row items-center gap-6">
+                    <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center flex-shrink-0">
+                      <Users className="w-8 h-8 text-white" />
+                    </div>
+                    <div className="flex-1 text-center md:text-left">
+                      <h3 className="text-xl font-semibold mb-2">Try Our Personal Board of Directors</h3>
+                      <p className="text-gray-600 mb-4">
+                        An interactive AI tool that assembles a diverse panel of expert advisors to challenge your thinking
+                        on important decisions. Get structured, multi-perspective counsel in minutes.
+                      </p>
+                      <a
+                        href="https://advisors.brightpathtechnology.io"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                          Launch the Advisor Tool
+                          <ExternalLink className="ml-2 w-4 h-4" />
+                        </Button>
+                      </a>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="text-center mt-8">
               <Card className="border-0 shadow-lg bg-blue-50">
                 <CardContent className="p-8">
                   <h3 className="text-xl font-semibold mb-4">Want to discuss these ideas?</h3>
                   <p className="text-gray-600 mb-6">
-                    We believe the best insights come from conversation. Let's explore how these perspectives 
+                    We believe the best insights come from conversation. Let's explore how these perspectives
                     might apply to your specific challenges.
                   </p>
                   <Button onClick={() => scrollToSection('contact')}>
