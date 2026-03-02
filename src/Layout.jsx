@@ -167,10 +167,10 @@ function Layout() {
               <div className="flex gap-12">
                 <div>
                   <h4 className="text-sm font-semibold mb-3 text-gray-200">Persona-X</h4>
-                  <ul className="space-y-2 text-sm text-gray-400">
-                    <li><a href="/#tools" className="hover:text-white transition-colors">Advisory Tools</a></li>
+                  <ul className="space-y-2 text-sm">
+                    <li><a href="/#tools" className="text-gray-400 hover:text-white transition-colors">Advisory Tools</a></li>
                     <li>
-                      <a href="https://advisors.brightpathtechnology.io" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                      <a href="https://advisors.brightpathtechnology.io" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                         Launch Persona-X ↗
                       </a>
                     </li>
@@ -178,9 +178,9 @@ function Layout() {
                 </div>
                 <div>
                   <h4 className="text-sm font-semibold mb-3 text-gray-200">Company</h4>
-                  <ul className="space-y-2 text-sm text-gray-400">
-                    <li><a href="/#about" className="hover:text-white transition-colors">About</a></li>
-                    <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+                  <ul className="space-y-2 text-sm">
+                    <li><a href="/#about" className="text-gray-400 hover:text-white transition-colors">About</a></li>
+                    <li><Link to="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</Link></li>
                   </ul>
                 </div>
               </div>
