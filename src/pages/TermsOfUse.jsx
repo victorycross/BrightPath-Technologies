@@ -14,15 +14,14 @@ function Section({ number, title, children }) {
 
 function TermsOfUse() {
   return (
-    <div className="pt-24 pb-20 px-4 min-h-screen bg-gray-50">
-      <div className="container mx-auto">
-        <div className="max-w-3xl mx-auto">
+    <div className="animate-fade-in pt-24 pb-16">
+      <div className="mx-auto max-w-3xl px-6">
 
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8 md:p-12">
-            <header className="mb-10 pb-6 border-b border-gray-200">
+          <div className="bg-white rounded-2xl border border-black/10 p-8 md:p-10">
+            <header className="mb-10 pb-6 border-b border-black/10">
               <h1 className="text-3xl font-bold text-gray-900 mb-2">Terms of Use</h1>
-              <p className="text-sm text-gray-500">Effective Date: March 2026</p>
-              <p className="text-sm text-gray-500 mt-1">
+              <p className="text-xs text-gray-400">Effective Date: March 2026</p>
+              <p className="text-xs text-gray-400 mt-1">
                 BrightPath Technologies &mdash; Toronto, Ontario, Canada
               </p>
             </header>
@@ -135,16 +134,15 @@ function TermsOfUse() {
               </p>
             </Section>
 
-            <div className="mt-10 pt-6 border-t border-gray-200 text-center">
+            <div className="mt-10 pt-6 border-t border-black/10 text-center">
               <Link
                 to="/"
-                className="text-sm text-blue-600 hover:text-blue-800 underline"
+                className="text-xs text-gray-400 hover:text-gray-600 transition-colors underline"
               >
                 &larr; Back to Home
               </Link>
             </div>
           </div>
-        </div>
       </div>
     </div>
   )
