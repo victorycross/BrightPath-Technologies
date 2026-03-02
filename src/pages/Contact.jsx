@@ -106,6 +106,9 @@ function Contact() {
           ) : (
             <>
               <div className="text-center mb-10">
+                <Link to="/" className="inline-block mb-6 text-sm text-blue-600 hover:text-blue-800">
+                  &larr; Back to Home
+                </Link>
                 <h1 className="text-4xl font-bold text-gray-900 mb-4">Get in Touch</h1>
                 <p className="text-lg text-gray-600">
                   We respond to all enquiries within one business day.

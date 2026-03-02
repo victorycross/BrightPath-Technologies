@@ -25,10 +25,8 @@ function Layout() {
 
   const navItems = [
     { id: 'home', label: 'Home', href: '/' },
+    { id: 'tools', label: 'Persona-X', href: '/#tools', scroll: 'tools' },
     { id: 'about', label: 'About', href: '/#about', scroll: 'about' },
-    { id: 'services', label: 'Services', href: '/#services', scroll: 'services' },
-    { id: 'case-studies', label: 'Case Studies', href: '/#case-studies', scroll: 'case-studies' },
-    { id: 'insights', label: 'Insights', href: '/#insights', scroll: 'insights' },
   ]
 
   return (
