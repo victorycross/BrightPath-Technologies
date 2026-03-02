@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card.jsx'
 import { CheckCircle } from 'lucide-react'
 
-// TODO: POST to https://formspree.io/f/YOUR_ID to wire up actual email delivery
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xbdaeegl'
 
 const SERVICE_OPTIONS = [
   'AI & Automation Governance',
@@ -45,15 +45,40 @@ function Contact() {
     }
   }
 
-  const handleSubmit = (e) => {
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState(null)
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const validation = validate()
     if (Object.keys(validation).length > 0) {
       setErrors(validation)
       return
     }
-    // TODO: POST to https://formspree.io/f/YOUR_ID
-    setSubmitted(true)
+    setSubmitting(true)
+    setSubmitError(null)
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          organisation: form.organisation,
+          service: form.service,
+          message: form.message,
+        }),
+      })
+      if (res.ok) {
+        setSubmitted(true)
+      } else {
+        setSubmitError('Something went wrong. Please try again.')
+      }
+    } catch {
+      setSubmitError('Unable to send message. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -215,8 +240,18 @@ function Contact() {
                       )}
                     </div>
 
-                    <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white">
-                      Send Message
+                    {submitError && (
+                      <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+                        {submitError}
+                      </p>
+                    )}
+
+                    <Button
+                      type="submit"
+                      disabled={submitting}
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-60"
+                    >
+                      {submitting ? 'Sending…' : 'Send Message'}
                     </Button>
                   </form>
                 </CardContent>
