@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url'
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [react(),tailwindcss()],
-  base: '/BrightPath-Technologies/',
+  base: '/',
   resolve: {
     alias: {
       "@": path.resolve(path.dirname(fileURLToPath(import.meta.url)), "./src"),
