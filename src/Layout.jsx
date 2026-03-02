@@ -147,12 +147,12 @@ function Layout() {
       <Outlet />
 
       {/* Footer */}
-      <footer className="py-12 px-4 bg-gray-900 text-white">
+      <footer className="py-10 px-4 bg-gray-900 text-white">
         <div className="container mx-auto">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              <div className="md:col-span-2">
-                <div className="flex items-center space-x-3 mb-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex flex-col md:flex-row justify-between items-start gap-8 mb-8">
+              <div>
+                <div className="flex items-center space-x-3 mb-3">
                   <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
                     <Building2 className="w-5 h-5 text-white" />
                   </div>
@@ -161,50 +161,38 @@ function Layout() {
                     <span className="text-lg font-light text-gray-300"> Technologies</span>
                   </div>
                 </div>
-                <p className="text-gray-300 mb-4 max-w-md">
-                  Solving complex problems with integrity, insight, and innovation.
-                  Practical consulting for the modern enterprise.
-                </p>
                 <p className="text-sm text-gray-400">Toronto, Ontario, Canada</p>
               </div>
 
-              <div>
-                <h4 className="font-semibold mb-4">Services</h4>
-                <ul className="space-y-2 text-sm text-gray-300">
-                  <li>Technology Risk &amp; Assurance</li>
-                  <li>AI &amp; Automation Governance</li>
-                  <li>Process Optimization</li>
-                  <li>Data &amp; Compliance Strategy</li>
-                  <li>Leadership Coaching</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="font-semibold mb-4">Company</h4>
-                <ul className="space-y-2 text-sm text-gray-300">
-                  <li>
-                    <a href="/#about" className="hover:text-white transition-colors">About</a>
-                  </li>
-                  <li>
-                    <a href="/#case-studies" className="hover:text-white transition-colors">Case Studies</a>
-                  </li>
-                  <li>
-                    <a href="/#insights" className="hover:text-white transition-colors">Insights</a>
-                  </li>
-                  <li>
-                    <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
-                  </li>
-                </ul>
+              <div className="flex gap-12">
+                <div>
+                  <h4 className="text-sm font-semibold mb-3 text-gray-200">Persona-X</h4>
+                  <ul className="space-y-2 text-sm text-gray-400">
+                    <li><a href="/#tools" className="hover:text-white transition-colors">Advisory Tools</a></li>
+                    <li>
+                      <a href="https://advisors.brightpathtechnology.io" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                        Launch Persona-X ↗
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold mb-3 text-gray-200">Company</h4>
+                  <ul className="space-y-2 text-sm text-gray-400">
+                    <li><a href="/#about" className="hover:text-white transition-colors">About</a></li>
+                    <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+                  </ul>
+                </div>
               </div>
             </div>
 
-            <Separator className="my-8 bg-gray-700" />
+            <Separator className="mb-6 bg-gray-700" />
 
-            <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-sm text-gray-400">
-                &copy; 2025 BrightPath Technologies. All rights reserved. Toronto, Ontario, Canada.
+                &copy; {new Date().getFullYear()} BrightPath Technologies. Toronto, Ontario, Canada.
               </p>
-              <div className="flex space-x-6 mt-4 md:mt-0">
+              <div className="flex space-x-6">
                 <Link to="/privacy" className="text-sm text-gray-400 hover:text-white transition-colors">
                   Privacy Policy
                 </Link>
