@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        var spa = new URLSearchParams(window.location.search).get('__spa');
+        if (spa) {
+          window.history.replaceState(null, '', spa);
+        }
+      })();
+    </script>
     <title>BrightPath Technologies | Solving Complex Problems With Integrity, Insight, and Innovation</title>
     <meta name="description" content="BrightPath Technologies helps organizations reduce friction, manage risk, and build smarter systems through practical consulting, AI enablement, and governance expertise." />
     <meta name="keywords" content="technology consulting, AI governance, risk management, digital transformation, automation, David Martin" />

@@ -32,6 +32,12 @@
         return;
       }
 
+      // Handle main site SPA paths (not subsites)
+      if (!path.startsWith('/sdlc-auditor/') && !path.startsWith('/privacy-tools/') && !path.startsWith('/ai-workflow/')) {
+        window.location.replace('/?__spa=' + encodeURIComponent(path + window.location.search));
+        return;
+      }
+
       // For unrecognized paths, redirect to the main site home
       window.location.replace('/');
     })();
