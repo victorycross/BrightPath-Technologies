@@ -1,0 +1,19 @@
+{
+  "name": "m365-extractor",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "extract:email": "node index.js --source email",
+    "extract:calendar": "node index.js --source calendar",
+    "extract:onedrive": "node index.js --source onedrive",
+    "extract:all": "node index.js --source all"
+  },
+  "dependencies": {
+    "@azure/msal-node": "^2.16.2",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
+    "@anthropic-ai/sdk": "^0.39.0",
+    "dotenv": "^16.4.7"
+  }
+}

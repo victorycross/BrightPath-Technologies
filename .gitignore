@@ -32,3 +32,6 @@ Thumbs.db
 # Sub-app build output (built in CI)
 privacy-tools/dist/
 
+# M365 extractor output (may contain sensitive corporate data)
+m365-extractor/output/
+
