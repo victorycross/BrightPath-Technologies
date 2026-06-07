@@ -52,6 +52,7 @@ const CATEGORIES = [
     id: 'apps',
     label: 'Apps & Tools',
     repos: [
+      { name: 'geoguesser', description: 'Interactive geography map quiz - countries, US states, Canadian provinces, capitals & water bodies; Supabase leaderboards + daily challenge', visibility: 'public', url: 'https://geoguesser.brightpathtechnology.io' },
       { name: 'cleaning-planner', description: 'Home Cleaning Planner — room-by-room task tracker for the whole household', visibility: 'public' },
       { name: 'cost-wise-home-ai', description: 'AI-powered home cost optimization tool', visibility: 'private' },
       { name: 'supply-savvy', description: 'Supply chain optimization and tracking tool', visibility: 'private' },
