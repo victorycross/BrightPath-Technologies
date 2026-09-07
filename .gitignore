@@ -32,3 +32,6 @@ Thumbs.db
 # Sub-app build output (built in CI)
 privacy-tools/dist/
 
+
+# Netlify local build cache
+.netlify/
